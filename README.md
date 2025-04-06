@@ -1,32 +1,68 @@
-# SolidStart
+# EricResume
 
-Everything you need to build a Solid project, powered by [`solid-start`](https://start.solidjs.com);
+A clean, elegant resume builder application built with SolidJS that lets you create professional resumes using simple Markdown.
 
-## Creating a project
+## Features
+
+- **Markdown Editor**: Write your resume using easy Markdown syntax
+- **Live Preview**: See changes to your resume in real-time
+- **Multiple Templates**: Choose from various professional resume styles
+- **Print Options**: Print as a single page or multi-page document
+- **Responsive Design**: Works on desktop and mobile devices
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 22.0 or higher
+- pnpm (recommended) or npm
+
+### Installation
 
 ```bash
-# create a new project in the current directory
-npm init solid@latest
+# Clone the repository
+git clone https://github.com/yourusername/eric-resume.git
+cd eric-resume
 
-# create a new project in my-app
-npm init solid@latest my-app
+# Install dependencies
+pnpm install
 ```
 
-## Developing
+### Development
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Start the development server:
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+pnpm dev
 ```
 
-## Building
+The application will be available at http://localhost:3000
 
-Solid apps are built with _presets_, which optimise your project for deployment to different environments.
+### Building for Production
 
-By default, `npm run build` will generate a Node app that you can run with `npm start`. To use a different preset, add it to the `devDependencies` in `package.json` and specify in your `app.config.js`.
+```bash
+pnpm build
+pnpm start
+```
 
-## This project was created with the [Solid CLI](https://solid-cli.netlify.app)
+## Project Structure
+
+- `/src/components/ui` - Reusable UI components
+- `/src/lib` - Utility functions and resume rendering logic
+- `/src/lib/templates` - Resume template definitions
+- `/src/routes` - Application pages
+
+## Technologies
+
+- [SolidJS](https://www.solidjs.com/) - A declarative, efficient JavaScript library for building user interfaces
+- [SolidStart](https://start.solidjs.com/) - SolidJS meta-framework
+- [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework
+- [Marked](https://marked.js.org/) - A markdown parser and compiler
+
+## License
+
+MIT
+
+---
+
+Created with 💖 by Eric

@@ -1,0 +1,150 @@
+/* PrismJS custom theme */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6a737d;
+}
+
+.token.punctuation {
+  color: #5c6370;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #e05252;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #0a8754;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #a67f59;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #0968da;
+}
+
+.token.function,
+.token.class-name {
+  color: #6e42c1;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #d88e1a;
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+/* Resume page styling */
+.resume-page {
+  background-color: white;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* A4 paper size in pixels (assuming 96 DPI) */
+.resume-page.a4 {
+  width: 794px;
+  min-height: 1123px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* US Letter size in pixels */
+.resume-page.letter {
+  width: 816px;
+  min-height: 1056px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* For monitoring content overflow in single-page mode */
+.resume-page.single-page {
+  overflow: hidden;
+}
+
+/* For paged mode */
+.resume-page-break {
+  border-bottom: 2px dashed #ccc;
+  margin: 20px 0;
+  position: relative;
+}
+
+.resume-page-break::after {
+  content: "Page Break";
+  position: absolute;
+  right: 20px;
+  top: -10px;
+  background: #f0f0f0;
+  padding: 0 10px;
+  font-size: 12px;
+  color: #666;
+}
+
+/* Resume container with adaptive scaling */
+.resume-container {
+  padding: 40px;
+  transition: all 0.2s ease-out;
+}
+
+/* Hide page breaks when printing */
+@media print {
+  .resume-page {
+    box-shadow: none;
+    margin: 0;
+    width: 100% !important;
+    min-height: auto !important;
+  }
+
+  .resume-page-break {
+    display: none;
+  }
+
+  /* Hide all UI elements when printing */
+  #app-header,
+  .editor-section,
+  button {
+    display: none !important;
+  }
+
+  /* Keep the scaling applied to the resume */
+  .resume-container {
+    transition: none !important;
+  }
+}
+
+/* Additional print styles for page setup */
+@page {
+  size: A4;
+  margin: 0;
+}
