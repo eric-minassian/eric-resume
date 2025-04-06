@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@corvu/resizable':
+        specifier: ^0.2.4
+        version: 0.2.4(solid-js@1.9.5)
       '@kobalte/core':
         specifier: ^0.13.9
         version: 0.13.9(solid-js@1.9.5)
@@ -147,6 +150,11 @@ packages:
   '@cloudflare/kv-asset-handler@0.4.0':
     resolution: {integrity: sha512-+tv3z+SPp+gqTIcImN9o0hqE9xyfQjI1XD9pL6NuKjua9B1y7mNYv0S9cP+QEbA4ppVgGZEmKOvHX5G5Ei1CVA==}
     engines: {node: '>=18.0.0'}
+
+  '@corvu/resizable@0.2.4':
+    resolution: {integrity: sha512-IWn9KAo7P6GCoRK96A3/oPSamc3fGjR7GhvyiGqMVIOr0kKKHpq0dQpmwq4NBM2xsuzEyIlWSn74MU9md2je/Q==}
+    peerDependencies:
+      solid-js: ^1.8
 
   '@corvu/utils@0.4.2':
     resolution: {integrity: sha512-Ox2kYyxy7NoXdKWdHeDEjZxClwzO4SKM8plAaVwmAJPxHMqA0rLOoAsa+hBDwRLpctf+ZRnAd/ykguuJidnaTA==}
@@ -3114,6 +3122,11 @@ snapshots:
   '@cloudflare/kv-asset-handler@0.4.0':
     dependencies:
       mime: 3.0.0
+
+  '@corvu/resizable@0.2.4(solid-js@1.9.5)':
+    dependencies:
+      '@corvu/utils': 0.4.2(solid-js@1.9.5)
+      solid-js: 1.9.5
 
   '@corvu/utils@0.4.2(solid-js@1.9.5)':
     dependencies:

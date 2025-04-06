@@ -8,6 +8,11 @@ import type { PrintMode } from "~/types";
 
 // Import CSS for the editor and resume styling
 import "~/components/markdown-editor/editor.css";
+import {
+  Resizable,
+  ResizableHandle,
+  ResizablePanel,
+} from "~/components/ui/resizable";
 
 /**
  * Default demo markdown for the resume editor
@@ -161,24 +166,28 @@ export default function Home() {
       <div class="flex flex-1 overflow-hidden">
         {/* Show regular editor view if not printing */}
         <Show when={!isPrinting()}>
-          <div class="w-1/2 border-r flex flex-col editor-section">
-            <div class="p-2 border-b">
-              <h2 class="font-semibold">Markdown Editor</h2>
-            </div>
-            <MarkdownEditor
-              initialValue={DEFAULT_RESUME_MARKDOWN}
-              onInput={handleMarkdownUpdate}
-            />
-          </div>
+          <Resizable orientation="horizontal">
+            <ResizablePanel class="border-r flex flex-col editor-section">
+              <div class="p-2 border-b">
+                <h2 class="font-semibold">Markdown Editor</h2>
+              </div>
+              <MarkdownEditor
+                initialValue={DEFAULT_RESUME_MARKDOWN}
+                onInput={handleMarkdownUpdate}
+              />
+            </ResizablePanel>
 
-          <div class="w-1/2 flex flex-col">
-            <div class="p-2 border-b">
-              <h2 class="font-semibold">Resume Preview</h2>
-            </div>
-            <div class="flex-1 overflow-auto p-4">
-              <div innerHTML={htmlOutput()} />
-            </div>
-          </div>
+            <ResizableHandle withHandle />
+
+            <ResizablePanel class="flex flex-col">
+              <div class="p-2 border-b">
+                <h2 class="font-semibold">Resume Preview</h2>
+              </div>
+              <div class="flex-1 overflow-auto p-4">
+                <div innerHTML={htmlOutput()} />
+              </div>
+            </ResizablePanel>
+          </Resizable>
         </Show>
 
         {/* Show only the resume when printing */}
