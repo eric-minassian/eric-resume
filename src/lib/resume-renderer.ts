@@ -1,5 +1,16 @@
 import { marked } from "marked";
+import type { JSX } from "solid-js";
 import type { PrintMode, ResumeTemplate } from "../types";
+
+// Configure marked to process markdown inside HTML tags
+marked.setOptions({
+  headerIds: false, // Avoid adding IDs to headers
+  mangle: false, // Don't mangle header IDs
+  breaks: true, // Add <br> on a single line break
+  gfm: true, // GitHub flavored markdown
+  pedantic: false, // More relaxed parsing
+  xhtml: false, // Use XHTML style tags
+});
 
 /**
  * The approximate number of characters that can fit in a single page
@@ -21,10 +32,17 @@ const SCALING_LEVELS = [
 ];
 
 /**
- * Utility for generating CSS from a styles object
+ * Convert a camelCase style property to kebab-case CSS property
+ */
+export const camelToKebabCase = (str: string): string => {
+  return str.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase();
+};
+
+/**
+ * Utility for generating CSS from a styles object using JSX.CSSProperties
  */
 export const generateCssFromObject = (
-  styleObj: Record<string, string>,
+  styleObj: Record<string, JSX.CSSProperties>,
   scale = 1.0
 ) => {
   let cssString = "";
@@ -53,30 +71,30 @@ export const generateCssFromObject = (
   };
 
   for (const selector in styleObj) {
+    if (!styleObj[selector]) continue;
+
+    const properties = styleObj[selector];
+    let selectorStyles = "";
+
+    // Convert JSX.CSSProperties to CSS string
+    for (const prop in properties) {
+      if (Object.prototype.hasOwnProperty.call(properties, prop)) {
+        // Use type assertion to handle the string indexing
+        const value = (properties as Record<string, string>)[prop];
+        if (value) {
+          const cssProperty = camelToKebabCase(prop);
+          const scaledValue = scaleValue(value, cssProperty);
+          selectorStyles += `${cssProperty}: ${scaledValue}; `;
+        }
+      }
+    }
+
     if (selector === "") {
       // Process the main container styles
-      const styles = styleObj[selector]
-        .split(";")
-        .map((style) => {
-          const [property, value] = style.split(":").map((s) => s.trim());
-          if (!property || !value) return style;
-          return `${property}: ${scaleValue(value, property)}`;
-        })
-        .join("; ");
-
-      cssString += `.resume-container { ${styles} }\n`;
+      cssString += `.resume-container { ${selectorStyles} }\n`;
     } else {
       // Process child element styles
-      const styles = styleObj[selector]
-        .split(";")
-        .map((style) => {
-          const [property, value] = style.split(":").map((s) => s.trim());
-          if (!property || !value) return style;
-          return `${property}: ${scaleValue(value, property)}`;
-        })
-        .join("; ");
-
-      cssString += `.resume-container ${selector} { ${styles} }\n`;
+      cssString += `.resume-container ${selector} { ${selectorStyles} }\n`;
     }
   }
 
@@ -219,8 +237,24 @@ export const renderResume = (
   template: ResumeTemplate,
   printMode: PrintMode
 ): string => {
-  // First convert markdown to HTML
-  const htmlContent = marked(markdown);
+  // Pre-process Markdown content to handle HTML div with Markdown inside
+  // This regex finds <div> tags with content inside them
+  const processedMarkdown = markdown.replace(
+    /<div([^>]*)>([\s\S]*?)<\/div>/g,
+    (match, attributes, content) => {
+      // Process the content inside the div with marked
+      const processedContent = marked.parse(content.trim());
+      // Remove wrapping <p> tags that marked adds
+      const cleanContent = processedContent
+        .replace(/^<p>/, "")
+        .replace(/<\/p>$/, "");
+      // Return the div with processed content
+      return `<div${attributes}>${cleanContent}</div>`;
+    }
+  );
+
+  // Convert the pre-processed markdown to HTML
+  const htmlContent = marked.parse(processedMarkdown);
 
   // Generate the appropriate HTML based on print mode
   let resumeHtml: string;

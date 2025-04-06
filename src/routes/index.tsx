@@ -14,9 +14,7 @@ import "~/components/markdown-editor/editor.css";
  */
 const DEFAULT_RESUME_MARKDOWN = `# John Doe
 
-**Software Engineer**
-
-john.doe@example.com | (123) 456-7890 | [LinkedIn](https://linkedin.com/in/johndoe)
+<div align="center">john.doe@example.com | (123) 456-7890 | [LinkedIn](https://linkedin.com/in/johndoe)</div>
 
 ---
 

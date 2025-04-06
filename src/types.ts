@@ -1,3 +1,5 @@
+import type { JSX } from "solid-js";
+
 /**
  * Types for the resume application
  */
@@ -9,7 +11,7 @@ export interface ResumeTemplate {
   /** Name of the template */
   name: string;
   /** CSS styles for different HTML elements */
-  styles: Record<string, string>;
+  styles: Record<string, JSX.CSSProperties>;
 }
 
 /**
